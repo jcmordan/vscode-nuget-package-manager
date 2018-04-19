@@ -4,6 +4,7 @@ import fetch from 'node-fetch';
 import { clearStatusBar } from '../shared';
 import { NUGET_VERSIONS_URL, CANCEL } from '../../constants';
 import { getFetchOptions } from '../../utils';
+import { ProxyConfiguration } from '../../utils/getFetchOptions';
 
 export default function fetchPackageVersions(selectedPackageName: string, versionsUrl: string = NUGET_VERSIONS_URL): Promise<any> | Promise<never> {
     if (!selectedPackageName) {
@@ -14,7 +15,7 @@ export default function fetchPackageVersions(selectedPackageName: string, versio
     vscode.window.setStatusBarMessage('Loading package versions...');
 
     return new Promise((resolve) => {
-        fetch(`${versionsUrl}${selectedPackageName}/index.json`, getFetchOptions(vscode.workspace.getConfiguration('http')))
+        fetch(`${versionsUrl}${selectedPackageName}/index.json`, getFetchOptions(vscode.workspace.getConfiguration('http') as ProxyConfiguration ))
             .then((response: Response) => {
                 clearStatusBar();
                 resolve({ response, selectedPackageName });

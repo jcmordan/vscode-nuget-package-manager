@@ -9,7 +9,7 @@ let lastProxy = '';
 let lastProxyStrictSSL: boolean;
 let lastHttpsProxyAgent: any;
 
-interface ProxyConfiguration {
+export interface ProxyConfiguration {
     proxy?: string;
     proxyAuthorization?: string | null;
     proxyStrictSSL?: boolean;

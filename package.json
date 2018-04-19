@@ -27,7 +27,8 @@
     ],
     "activationEvents": [
         "onCommand:extension.addNuGetPackage",
-        "onCommand:extension.removeNuGetPackage"
+        "onCommand:extension.removeNuGetPackage",
+        "workspaceContains:**/*.csproj"
     ],
     "main": "./out/src/extension",
     "contributes": {
@@ -39,12 +40,29 @@
             {
                 "command": "extension.removeNuGetPackage",
                 "title": "NuGet Package Manager: Remove Package"
+            },
+            {
+                "command": "extension.manageNuGetPackages",
+                "title": "NuGet Package Manager: Manage Packages",
+                "icon": {
+                    "light": "./images/nuget-icon.png",
+                    "dark": "./images/nuget-icon.png"
+                }
             }
-        ]
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "extension.manageNuGetPackages",
+                    "group": "navigation"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
         "compile": "tsc -watch -p ./",
+        "watch": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "node ./node_modules/vscode/bin/test"
     },
